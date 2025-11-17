@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package rag;
+
+service RagService {
+  rpc IndexDocument (IndexDocumentRequest) returns (IndexDocumentResponse);
+  rpc Chat (ChatRequest) returns (stream ChatToken);
+}
+
+message IndexDocumentRequest {
+  string document_id = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message IndexDocumentResponse {
+  bool ok = 1;
+}
+
+message ChatRequest {
+  string question = 1;
+  int32 max_context_docs = 2;
+}
+
+message ChatToken {
+  string token = 1;
+  bool is_final = 2;
+}
